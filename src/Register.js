@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 
+import { postRegister } from "./parts/mallia.js";
+
 export default function Register() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -46,10 +48,17 @@ export default function Register() {
         const validate = validation();
         if (validate === true) {
             setLoading(false);
-            alert("Usuário criado com sucesso");
-            navigate("/", {});
-            setLoading(true);
-        };        
+
+            postRegister(register).then(() => {
+                alert("Usuário criado com sucesso");
+                navigate("/", {});
+            }).catch((error) => {
+                if (error.response.status === 409) {
+                    alert("Email em uso, favor utilizar outro.");
+                };
+                setLoading(true);
+            });
+        };     
     };
 
     return (

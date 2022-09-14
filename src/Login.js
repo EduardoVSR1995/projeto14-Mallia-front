@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 
+import { postSignIn } from "../src/parts/mallia.js";
+
 export default function Login({setUser}) {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -26,10 +28,15 @@ export default function Login({setUser}) {
                 password: userPassword
             };
 
-            setUser(login);
-            console.log(login);
-            navigate("/", {});
-            setLoading(true);           
+            postSignIn(login).then((res) => {
+                setUser(res.data);
+                return navigate("/", {});
+            }).catch((error) => {
+                if (error.response.status === 401) {
+                    alert("Usuário não encontrado, login ou senha incorretos");
+                };
+                setLoading(true);
+            });          
         };        
     };
     return(
