@@ -1,31 +1,21 @@
-import { useNavigate } from "react-router-dom";
-import { Container , Text} from "./Subparts.js"
+import UserContext from './UserContext.js';
 import styled from "styled-components"
+import { useContext } from "react";
+import { useState } from "react";
 
 
 export default function EveryProducts({...props}){
-    console.log(props)
-    // const navigat = useNavigate()
-    // const {date, description, price, extract, _id} = props.obj;
-    // let increaseDecrease = `#C70000`;
-    // if(extract){
-    //     increaseDecrease='#03AC00';
-    // }
-    // function del(){
-    //     deletCont({ headers: { authorization: `Bearer ${_id}` } }).then(sucess);
-    // }
-    // function sucess(){
-    //     if(window.confirm("Deseja apagar este extrato?"))return props.reload();
-    // }
+    const { user, setUser } = useContext(UserContext);
+    function veriIten(){
+        setUser({...user, product:[...user.product, props.obj] })
 
-    // function edit(){
-    //     if(extract) return navigat("/Editar-entrada");
-    //     return navigat("/Editar-saida");
+    }
+    console.log( user)
 
-    // }
+   
     const price = props.obj.price/100
     return(
-        <Every>
+        <Every onClick={veriIten}  >
         <img src={props.obj.image} />
         <span >{props.obj.productName}</span>
         <span >$ {price%1===0 ? `${price},00`: `${price}` }</span> 
@@ -38,11 +28,11 @@ display: flex ;
 justify-content: center ;
 align-items: center ;
 flex-wrap: wrap ;
-margin: 0px 10px ;
+margin: 5px 10px ;
 border-radius: 30px ;
 width: 90px ;
 height: 150px ;
-background: #E7DFD8 ;
+background: ${props=> !props.bolean ? '#CDCDB9': '#A0AEA5'} ;
 span{
 display: flex ;
 justify-content: center ;
