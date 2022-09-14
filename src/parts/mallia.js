@@ -2,8 +2,8 @@ import axios from 'axios'
 
 const URL = "http://localhost:5000/";
 
-function getProducts(obj,header){
-    const promis = axios.get(`${URI}products`,obj, header);
+function getProducts(header){
+    const promis = axios.get(`${URL}products`,header);
     return promis;
 }
 
