@@ -47,7 +47,7 @@ const Butto = styled.button`
         cursor: pointer; 
         border-style: none;
         width: ${props=> props.width};
-        height: ${props=> props.heigt};
+        height: ${props=> props.height};
         background: ${props=> props.background};
         border-radius: 5px;
         font-family:'Raleway' ;
@@ -60,7 +60,7 @@ const Butto = styled.button`
         transition: background 50ms linear ;
         margin: 7px 0px;
         :active{
-            background-color: ${props => '#' + Math.floor(Math.random() * 0x1000000).toString(16).padStart(6, '0')} ;
+            background-color: #CDCDB9  ;
             transform: translatey(4px);
         }
   
