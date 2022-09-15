@@ -19,8 +19,8 @@ export default function App() {
                         <Routes>
                             <Route path="/" element={<Initial />} />
                             <Route path="/register" element={<Register />} />
-                            <Route path="/signIn" element={<Login setUser={setUser}/>} />
                             <Route path="/shoppingCart" element={<ShoppingCart />} />
+                            <Route path="/signIn" element={<Login setUser={setUser} user={user} />} />
                             {/* <Route path='/Extrato' element={<Extract/>} /> */}
                             {/* <Route path='/Novo-gasto' element={<NewValue optional={false} />} /> */}
                             {/* <Route path='/Novo-recebido' element={<NewValue optional={true} />} />  */}
@@ -36,7 +36,7 @@ export default function App() {
 
 
 const Wrapper = styled.div`
-    background-color: #C4C7BF ;
+    background-color: #E6E6E6 ;
     display: flex;
     justify-content: center ;
     height: 100vh;
