@@ -18,7 +18,6 @@ export default function App() {
                         <Routes>
                             <Route path="/" element={<Initial />} />
                             <Route path="/register" element={<Register />} />
-                           
                             <Route path="/signIn" element={<Login setUser={setUser} user={user} />} />
                             {/* <Route path='/Extrato' element={<Extract/>} /> */}
                             {/* <Route path='/Novo-gasto' element={<NewValue optional={false} />} /> */}
