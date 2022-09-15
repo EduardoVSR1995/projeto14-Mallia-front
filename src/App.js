@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserContext from './parts/UserContext';
 import ResetStyled from './reset/reset';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { useState } from "react";
 import Initial from './Initial';
 import Register from './Register.js';
