@@ -24,6 +24,7 @@ export default function EveryProducts({...props}){
 }
 
 const Every = styled.div`
+box-shadow: 5px 3px 10px grey;
 display: flex ;
 justify-content: center ;
 align-items: center ;
@@ -32,12 +33,22 @@ margin: 5px 10px ;
 border-radius: 30px ;
 width: 90px ;
 height: 150px ;
-background: ${props=> !props.bolean ? '#CDCDB9': '#A0AEA5'} ;
+background: #DFDFD5 ;
+transition: white 500ms linear;
+:hover{
+    transform: translateY(5px)   
+
+}
+:active{ 
+ transform: rotateZ(5deg) ;
+
+
+}
 span{
 display: flex ;
 justify-content: center ;
 align-items: center ;
-font-size: 20px ;
+font-size: 15px ;
 width: 100% ;
 height: 25px ;
 
