@@ -1,77 +1,44 @@
 import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
 import CartItems from "./CartItems";
 import UserContext from "../src/parts/UserContext.js";
 
-const cart = [
-    {
-        productName:"xxx",
-        price:3200,
-        descryption: "bolinha,bolinha,boinha",
-        image: 'https://i.imgur.com/iICd88m.png',
-        quantity: 2
-    },
-    {
-        productName:"xx",
-        price:250,
-        descryption: "bolinha,bolinha",
-        image: 'https://i.imgur.com/joGPmij.png',
-        quantity: 1
-    },
-    {
-        productName:"x",
-        price:200,
-        descryption: "bolinha",
-        image: 'https://i.imgur.com/6xHaChH.png',
-        quantity: 5
-    },
-    {
-        productName:"xxx",
-        price:3200,
-        descryption: "bolinha,bolinha,boinha",
-        image: 'https://i.imgur.com/iICd88m.png',
-        quantity: 2
-    },
-    {
-        productName:"xx",
-        price:250,
-        descryption: "bolinha,bolinha",
-        image: 'https://i.imgur.com/joGPmij.png',
-        quantity: 1
-    },
-    {
-        productName:"x",
-        price:200,
-        descryption: "bolinha",
-        image: 'https://i.imgur.com/6xHaChH.png',
-        quantity: 15
-    }
-];
-
 export default function ShoppingCart() {
-    // let loginInfos = {name: "asda"};
-    const { loginInfos } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
+
+    const navigat = useNavigate()
+    //const { loginInfos } = useContext(UserContext);
     // const token = loginInfos.token;
     // const transactionAuth = { headers: {"auth": "Bearer " + token}};
 
     const [total, setTotal] = useState("0");
     let sum = 0;
-    
+
+    const cart = user.product;
+        
     useEffect(() => {
         cart.forEach(price => {
-            sum = sum + Number(price.price);
-        });
+            for (let i = 0; i < price.quantity; i++) {
+                sum = sum + Number(price.price);    
+            }
+            
+        } ) ;
+        setUser({...user, plusplus , sum: sum});
         setTotal(sum);
-    }, [sum]);
-    console.log(total);
+    }, []);
+    console.log(cart, user);
+
+    function plusplus(price){
+        setTotal(price)
+        }
 
 
     return (
         <ShoppingCartScreen>
-            <div className="header">
+            <div className="header" onClick={()=>navigat('/')} >
                 Mallia
             </div>
             <div className="greenBar"></div>
@@ -80,8 +47,10 @@ export default function ShoppingCart() {
             </div>
 
             <div className="productsOnCart">
-                {(cart.map((cart) => (
+                { !cart ? "" : (cart.map((cart, index) => (
                     <CartItems
+                        key={index}
+                        _id={cart._id}
                         productName={cart.productName}
                         price={cart.price}
                         descryption={cart.descryption}
@@ -97,7 +66,7 @@ export default function ShoppingCart() {
                 </div>
                 <div className="totalBox">
                     <div>Total R${total}</div>
-                    {(!loginInfos) ? <Link to="/signIn" style={{ textDecoration: 'none' }}><div className="smallButton">login</div></Link>
+                    { user.loginInfos  ? <Link to="/signIn" style={{ textDecoration: 'none' }}><div className="smallButton">login</div></Link>
                     : <Link to="/confirmation" style={{ textDecoration: 'none' }}><div className="smallButton">Finalizar compra</div></Link>}
                 </div>
             </div>

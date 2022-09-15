@@ -1,10 +1,49 @@
 import styled from "styled-components";
-import UserContext from "./parts/UserContext";
-import { useState } from "react";
+import UserContext from "./parts/UserContext.js";
+import { useContext } from "react";
 
+export default function CartItems({ _id ,productName, price, descryption, image, quantity}) {
+    const { user, setUser } = useContext(UserContext);
+    
+    if(quantity === 0){
+        for (let i = 0; i < user.product.length; i++) {   
+            if( _id === user.product[i]._id ){
+                const aux = [...user.product]
+                aux.splice(i,1)
+                setUser({...user, product:[...aux]}) 
+                return
+                }
+            }
+        }
+    
+    function less(){
+        for (let i = 0; i < user.product.length; i++) {
+            if( _id === user.product[i]._id ){
+                const obj = {...user.product[i], quantity:user.product[i].quantity-1}
+                const aux = [...user.product]
+                aux[i] = obj;
+                setUser({...user, product:[...aux], cont: user.cont-1, sum: user.sum-price }) 
+                user.plusplus(user.sum-price)
+            }        
 
-export default function CartItems({productName, price, descryption, image, quantity}) {
-   return (
+        }
+        
+    }
+
+    function plus(){
+        for (let i = 0; i < user.product.length; i++) {
+            if( _id === user.product[i]._id ){
+                const obj = {...user.product[i], quantity:user.product[i].quantity+1}
+                const aux = [...user.product]
+                aux[i] = obj;
+                setUser({...user, product:[...aux],cont: user.cont+1 ,sum: user.sum+price }) 
+                user.plusplus(user.sum+price)
+                return
+            }
+    }}
+   
+    return (
+
         <CartItemCard>
             <div className="itemWindow">
                 <div className="imgBox">
@@ -20,9 +59,9 @@ export default function CartItems({productName, price, descryption, image, quant
                 </div>
                 <div className="priceQuantityBox">
                     <div>
-                        <box className="ionBox"><ion-icon name="add-outline"></ion-icon></box>
+                        <box className="ionBox" onClick={plus} ><ion-icon name="add-outline"></ion-icon></box>
                         <box className="ionBox">{quantity}</box>
-                        <box className="ionBox"><ion-icon name="remove-outline"></ion-icon></box>
+                        <box className="ionBox" onClick={less} ><ion-icon name="remove-outline"></ion-icon></box>
                     </div>
                     <div>{price}</div>
                 </div>
