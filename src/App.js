@@ -4,9 +4,9 @@ import ResetStyled from './reset/reset';
 import styled from 'styled-components';
 import { useState } from "react";
 import Initial from './Initial';
-import Register from './Register';
-import Login from './Login';
-import ShoppingCart from "./ShoppingCart";
+import Register from './Register.js';
+import Login from './Login.js';
+import ShoppingCart from "./ShoppingCart.js";
 
 export default function App() {
     const [user, setUser] = useState([]); 
