@@ -6,6 +6,7 @@ import { useState } from "react";
 import Initial from './Initial';
 import Register from './Register';
 import Login from './Login';
+import ShoppingCart from "./ShoppingCart";
 
 export default function App() {
     const [user, setUser] = useState([]); 
@@ -18,6 +19,7 @@ export default function App() {
                         <Routes>
                             <Route path="/" element={<Initial />} />
                             <Route path="/register" element={<Register />} />
+                            <Route path="/shoppingCart" element={<ShoppingCart />} />
                             <Route path="/signIn" element={<Login setUser={setUser} user={user} />} />
                             {/* <Route path='/Extrato' element={<Extract/>} /> */}
                             {/* <Route path='/Novo-gasto' element={<NewValue optional={false} />} /> */}
