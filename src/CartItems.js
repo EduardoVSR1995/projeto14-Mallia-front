@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import UserContext from "./parts/UserContext";
+import { useState } from "react";
 
 export default function CartItems({productName, price, descryption, image}) {
+    
     console.log(image);
     return (
         <CartItemCard>
