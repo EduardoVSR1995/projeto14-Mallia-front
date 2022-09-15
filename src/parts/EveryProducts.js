@@ -1,18 +1,25 @@
 import UserContext from './UserContext.js';
 import styled from "styled-components"
 import { useContext } from "react";
-import { useState } from "react";
 
 
 export default function EveryProducts({...props}){
     const { user, setUser } = useContext(UserContext);
     function veriIten(){
-        setUser({...user, product:[...user.product, props.obj] })
-
+        for (let i = 0; i < user.product.length; i++) {
+            if( props.obj._id === user.product[i]._id ){
+                const obj = {...user.product[i], quantity:user.product[i].quantity+1}
+                const aux = [...user.product]
+                aux[i] = obj;
+                setUser({...user, product:[...aux], cont: user.cont+1 }) 
+                return
+            }
+    
+        }
+        
+        setUser({...user, product:[...user.product, {...props.obj, quantity:1 } ], cont: user.cont+1 })
     }
-    console.log( user)
 
-   
     const price = props.obj.price/100
     return(
         <Every onClick={veriIten}  >
