@@ -41,10 +41,9 @@ export default function CartItems({ _id ,productName, price, descryption, image,
                 return
             }
     }}
-
-
-    
+   
     return (
+
         <CartItemCard>
             <div className="itemWindow">
                 <div className="imgBox">
