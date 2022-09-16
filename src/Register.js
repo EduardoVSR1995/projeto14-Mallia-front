@@ -1,14 +1,15 @@
+import UserContext from "./parts/UserContext.js";
 import styled from "styled-components";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
-
+import { useContext } from "react";
 import { postRegister } from "./parts/mallia.js";
 
 export default function Register() {
+    const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-
     const [userName, setUserName] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
@@ -49,9 +50,12 @@ export default function Register() {
         if (validate === true) {
             setLoading(false);
 
-            postRegister(register).then(() => {
+            postRegister(register).then((res) => {
+                localStorage.clear();
+                localStorage.setItem('Mallia', JSON.stringify({name: userName, token: userPassword }));
+                if(user.cont===0) return navigate("/");
+                navigate("/shoppingCart")
                 alert("Usuário criado com sucesso");
-                navigate("/", {});
             }).catch((error) => {
                 if (error.response.status === 409) {
                     alert("Email em uso, favor utilizar outro.");
@@ -115,6 +119,10 @@ export default function Register() {
 
 const RegisterScreen = styled.div`
 background-color: #E6E6E6;
+a{
+    text-decoration: none ;
+}
+
 .header {
     width: 100vw;
     height: 180px;

@@ -29,12 +29,10 @@ const Butto = styled.button`
         height: ${props=> props.height};
         background: ${props=> props.background};
         border-radius: 5px;
-        font-family:'Raleway' ;
         font-style: normal;
         font-weight: 400;
-        font-size: 21px;
+        font-size: 15px;
         line-height: 26px;
-        color: ${props=> props.color};
         opacity: ${(props) => !props.bolean ? 1 : 0.5 };
         margin: 7px 0px;
         :active{

@@ -2,7 +2,7 @@ import { Container, Button } from "./parts/Subparts.js";
 import EveryProducts from './parts/EveryProducts';
 import { ThreeDots } from "react-loader-spinner";
 import UserContext from './parts/UserContext.js';
-import { getProducts } from "./parts/mallia.js";
+import { getProducts, postSignIn } from "./parts/mallia.js";
 import { useNavigate } from "react-router-dom";
 import reigth from './imags/passarR.svg';
 import left from './imags/passarL.svg';
@@ -17,11 +17,18 @@ import { useState } from "react";
 export default function Initial() {
     const { user, setUser } = useContext(UserContext);
     const [initial, setInitial] = useState({})
-    const navigat = useNavigate()
-
+    const navigat = useNavigate();
+   
     useEffect(() => {
+        const use = JSON.parse(localStorage.getItem('Mallia'));
+        if(use) postSignIn(use).then(function(i){ 
+            if(!user.cont){
+                setUser({...user, name:i.data.name, token: i.data.token,product: [], cont:0 })
+            }
+            }).catch(()=> localStorage.clear());
+
         if (!user.product) setUser({ ...user, product: [], cont:0 });
-        getProducts({ headers: { Authorization: `Bearer 0a3606b2-d115-4f7e-97e8-16c227a49105` } }).catch(err).then(sucess);
+        getProducts({ headers: { Authorization: `Bearer ${user.token}` } }).catch(err).then(sucess);
     }, [])
     function sucess(value) {
         setInitial({ ...initial, list: value.data, rolinit:0, rolend: value.data.length, rol: 21 });
@@ -35,16 +42,21 @@ export default function Initial() {
     }
     function rolLess(){
         if(initial.rol>0 && initial.rolinit>0 ) setInitial({...initial, rolinit: initial.rolinit-21, rol: initial.rol-21 })
-
-
     }
+
+    function transitio(){
+        if(window.confirm('Deseja sair da sua conta')){
+            localStorage.clear()
+            setUser({});
+            navigat('/signIn') 
+        }}
 
     console.log(user)
 
     return (
 
         <All>
-            <Container background={'#E7DFD8'} height={'80px'} > <h1> Mallia  <img src={logo} /><p><Button onClick={() => navigat('/signIn')}> Login </Button> <Button  onClick={() => navigat('/shoppingCart')} ><img src={image} /> &nbsp; {user.cont} </Button></p></h1>  </Container>
+            <Container background={'#E7DFD8'} height={'80px'} > <h1> Mallia  <img src={logo} /><p><Button onClick={transitio }> {user.name ? `${user.name[0].toUpperCase()}${user.name.substr(1)}` :'Login' } </Button> <Button  onClick={() => navigat('/shoppingCart')} ><img src={image} /> &nbsp; {user.cont} </Button></p></h1>  </Container>
             <Container background={'#DFDFD5'} height={'10px'}></Container>
             <h1>
                 <Container width={'30%'} > Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</Container>

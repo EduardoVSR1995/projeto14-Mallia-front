@@ -7,7 +7,6 @@ import { postSignIn } from "../src/parts/mallia.js";
 export default function Login({user , setUser}) {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
 
@@ -28,8 +27,12 @@ export default function Login({user , setUser}) {
             };
 
             postSignIn(login).then((res) => {
-                setUser({...user, obj:res.data});
-                return navigate("/", {});
+                localStorage.clear();
+                localStorage.setItem('Mallia', JSON.stringify(login));
+                setUser({...user, name: res.data.name, token: res.data.token });
+                if(user.cont===0) return navigate("/");
+                navigate("/shoppingCart")
+                return ;
             }).catch((error) => {
                 if (error.response.status === 401) {
                     alert("Usuário não encontrado, login ou senha incorretos");
@@ -77,6 +80,9 @@ export default function Login({user , setUser}) {
 
 const LoginScreen = styled.div`
 background-color: #E6E6E6;
+a{
+    text-decoration: none ;
+}
 .header {
     width: 100vw;
     height: 180px;
