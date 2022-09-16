@@ -51,8 +51,9 @@ export default function Register() {
             setLoading(false);
 
             postRegister(register).then((res) => {
+                const login = {name: userName, password:userPassword}
                 localStorage.clear();
-                localStorage.setItem('Mallia', JSON.stringify({name: userName, token: userPassword }));
+                localStorage.setItem('Mallia', JSON.stringify(login));
                 if(user.cont===0) return navigate("/");
                 navigate("/shoppingCart")
                 alert("Usuário criado com sucesso");

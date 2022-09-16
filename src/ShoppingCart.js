@@ -17,26 +17,30 @@ export default function ShoppingCart() {
 
     useEffect(() => {
         const use = JSON.parse(localStorage.getItem('Mallia'));
-        if(use) postSignIn(use).then((i)=>  setUser({...user,name:i.data.name, token: i.data.token, plusplus, sum: sum }) ).catch(()=> localStorage.clear());
+        if(use) postSignIn(use).then((i)=>{ 
+        if(use.token){setUser({...user,name:i.data.name, token: i.data.token, plusplus, sum: sum })}}
+        ).catch(()=> localStorage.clear());
         
-        !cart ? console.log('ola') :cart.forEach(price => {
+        if(cart){
+            cart.forEach(price => {
             for (let i = 0; i < price.quantity; i++) {
                 sum = sum + Number(price.price);
             }
 
-        });
-        setUser({ ...user, plusplus, sum: sum });
-        setTotal(sum);
-    if (user.cont===0) return navigat('/');
+            })}
+            setUser({ ...user, plusplus, sum: sum });
+            setTotal(sum);
+        if (user.cont===0) return navigat('/');
     }, []);
 
     function plusplus(price) {
         setTotal(price)
     }
     function sendRequest(){
-        if( user.token ) return navigat('/cheCkout')
-        navigat('/signIn')
+       if( !user.token ) return navigat('/signIn')
+       navigat('/cheCkout')
     }
+
 
     return (
         <ShoppingCartScreen>
@@ -67,8 +71,8 @@ export default function ShoppingCart() {
                     Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
                 </div>
                 <div className="totalBox">
-                    <div>Total R${total%1===0 ?total/100+",00": total/100}</div>
-                    <div className="smallButton" onClick={sendRequest} >{ user.token ? 'Finalizar compra' :'Loguin'}</div>
+                    <div>Total R${total%1===0 ?total/100+",00": user.sum/100}</div>
+                    <div className="smallButton" onClick={sendRequest} >{ user.token ? 'Finalizar compra' : "Login"}</div>
                 </div>
             </div>
 
