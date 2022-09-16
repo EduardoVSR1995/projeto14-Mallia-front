@@ -17,4 +17,9 @@ function postSignIn(login) {
     return promise;
 };
 
-export {getProducts, postRegister, postSignIn};
+function postSaleConfirmation(cart, saleAuth) {
+    const promise = axios.post(`${URL}cheCkout`, cart, saleAuth);
+    return promise;
+}
+
+export {getProducts, postRegister, postSignIn, postSaleConfirmation};
