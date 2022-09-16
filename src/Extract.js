@@ -20,7 +20,7 @@ export default function Extract(){
                 <span>Email: {user.email}</span>
                 <span> Nome dos produtos: {user.product.map(value => {return <h2> {value.productName} </h2> })}</span>
                 <span>Total de produtos: {user.cont}</span>
-                <span><Button background={"#DFDFD5"} height={'50px'} width={"250px"} onClick={()=>navigat('/')} > Confirmar compra </Button></span>
+                <span><Button background={"#DFDFD5"} height={'50px'} width={"250px"} onClick={function(){navigat('/' ); setUser({})}} > Confirmar compra </Button></span>
             </AllInfos>
             <h3>
             Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups
