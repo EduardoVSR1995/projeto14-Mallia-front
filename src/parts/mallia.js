@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const URL = "https://git.heroku.com/mallia-back-dudu007.git";
+const URL = "https://mallia-back-dudu007.herokuapp.com/";
 
 function getProducts(header){
     const promis = axios.get(`${URL}products`,header);
