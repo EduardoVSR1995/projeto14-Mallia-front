@@ -56,7 +56,7 @@ export default function Initial() {
     return (
 
         <All>
-            <Container background={'#E7DFD8'} height={'80px'} > <h1> Mallia  <img src={logo} /><p><Button onClick={transitio }> {user.name ? `${user.name[0].toUpperCase()}${user.name.substr(1)}` :'Login' } </Button> <Button  onClick={() => navigat('/shoppingCart')} ><img src={image} /> &nbsp; {user.cont} </Button></p></h1>  </Container>
+            <Container background={'#E7DFD8'} height={'80px'} > <h1> Mallia  <img src={logo} /><p><Button onClick={()=>user.token ? transitio() : navigat('/signIn') }> {user.name ? `${user.name[0].toUpperCase()}${user.name.substr(1)}` :'Login' } </Button> <Button  onClick={() => navigat('/shoppingCart')} ><img src={image} /> &nbsp; {user.cont} </Button></p></h1>  </Container>
             <Container background={'#DFDFD5'} height={'10px'}></Container>
             <h1>
                 <Container width={'30%'} > Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</Container>
