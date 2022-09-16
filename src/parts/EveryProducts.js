@@ -23,25 +23,37 @@ export default function EveryProducts({...props}){
     const price = props.obj.price/100
     return(
         <Every onClick={veriIten}  >
-        <img src={props.obj.image} />
+        <Img><img src={props.obj.image} /></Img>
         <span >{props.obj.productName}</span>
         <span >$ {price%1===0 ? `${price},00`: `${price}` }</span> 
         </Every>
     )
 }
+const Img = styled.div`
+    display: flex ;
+    justify-content: center ;
+    width:120px ;
+    height: 80px ;
+    img{
+    max-width: 90px;
+    max-height: 90px ;
+}
+
+`;
+
 
 const Every = styled.div`
 box-shadow: 5px 3px 10px grey;
 display: flex ;
 justify-content: center ;
-align-items: center ;
 flex-wrap: wrap ;
 margin: 5px 10px ;
 border-radius: 30px ;
-width: 90px ;
-height: 150px ;
+width: 150px ;
+height: 180px ;
 background: #DFDFD5 ;
 transition: white 500ms linear;
+
 :hover{
     transform: translateY(5px)   
 
@@ -54,15 +66,12 @@ transition: white 500ms linear;
 span{
 display: flex ;
 justify-content: center ;
-align-items: center ;
+align-items: start ;
 font-size: 15px ;
-width: 100% ;
-height: 25px ;
+width: 95% ;
+height: 40px ;
 
 }
-img{
-    max-width: 70px;
-    max-height: 90px ;
-}
+
 `;
 
