@@ -1,12 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserContext from './parts/UserContext';
+import ShoppingCart from "./ShoppingCart.js";
 import ResetStyled from './reset/reset';
 import styled from 'styled-components';
+import Register from './Register.js';
+import Extract from './Extract.js';
 import { useState } from "react";
 import Initial from './Initial';
-import Register from './Register.js';
 import Login from './Login.js';
-import ShoppingCart from "./ShoppingCart.js";
 
 export default function App() {
     const [user, setUser] = useState([]); 
@@ -21,11 +22,7 @@ export default function App() {
                             <Route path="/register" element={<Register />} />
                             <Route path="/shoppingCart" element={<ShoppingCart />} />
                             <Route path="/signIn" element={<Login setUser={setUser} user={user} />} />
-                            {/* <Route path='/Extrato' element={<Extract/>} /> */}
-                            {/* <Route path='/Novo-gasto' element={<NewValue optional={false} />} /> */}
-                            {/* <Route path='/Novo-recebido' element={<NewValue optional={true} />} />  */}
-                            {/* <Route path='/Editar-entrada' element={<ModifiValue optional={true} />} />  */}
-                            {/* <Route path='/Editar-saida' element={<ModifiValue optional={false} />} />  */}
+                            <Route path='/cheCkout' element={<Extract/>} />
                         </Routes>
                     </BrowserRouter>
                 </Wrapper>

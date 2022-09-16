@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import UserContext from "./parts/UserContext.js";
 import { useContext } from "react";
+import {useNavigate} from 'react-router-dom'
 
 export default function CartItems({ _id ,productName, price, descryption, image, quantity}) {
     const { user, setUser } = useContext(UserContext);
+    const navigat = useNavigate()
     
     if(quantity === 0){
+        if (user.cont===0) return navigat('/');
         for (let i = 0; i < user.product.length; i++) {   
             if( _id === user.product[i]._id ){
                 const aux = [...user.product]
@@ -63,7 +66,7 @@ export default function CartItems({ _id ,productName, price, descryption, image,
                         <box className="ionBox">{quantity}</box>
                         <box className="ionBox" onClick={less} ><ion-icon name="remove-outline"></ion-icon></box>
                     </div>
-                    <div>{price}</div>
+                    <div>{price%1===0 ?price/100+",00": price/100 }</div>
                 </div>
             </div>
         </CartItemCard>

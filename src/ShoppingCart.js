@@ -1,44 +1,46 @@
-import { useContext, useEffect } from "react";
+import UserContext from "../src/parts/UserContext.js";
+import { postSignIn } from "./parts/mallia.js";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import CartItems from "./CartItems";
-import UserContext from "../src/parts/UserContext.js";
+import { useState } from "react";
 
 export default function ShoppingCart() {
     const { user, setUser } = useContext(UserContext);
-
-    const navigat = useNavigate()
-    //const { loginInfos } = useContext(UserContext);
-    // const token = loginInfos.token;
-    // const transactionAuth = { headers: {"auth": "Bearer " + token}};
-
     const [total, setTotal] = useState("0");
+    const navigat = useNavigate()
+    
+    const cart = user.product;
+
     let sum = 0;
 
-    const cart = user.product;
-        
     useEffect(() => {
-        cart.forEach(price => {
+        const use = JSON.parse(localStorage.getItem('Mallia'));
+        if(use) postSignIn(use).then((i)=>  setUser({...user,name:i.data.name, token: i.data.token, plusplus, sum: sum }) ).catch(()=> localStorage.clear());
+        
+        !cart ? console.log('ola') :cart.forEach(price => {
             for (let i = 0; i < price.quantity; i++) {
-                sum = sum + Number(price.price);    
+                sum = sum + Number(price.price);
             }
-            
-        } ) ;
-        setUser({...user, plusplus , sum: sum});
+
+        });
+        setUser({ ...user, plusplus, sum: sum });
         setTotal(sum);
+    if (user.cont===0) return navigat('/');
     }, []);
-    console.log(cart, user);
 
-    function plusplus(price){
+    function plusplus(price) {
         setTotal(price)
-        }
-
+    }
+    function sendRequest(){
+        if( user.token ) return navigat('/cheCkout')
+        navigat('/signIn')
+    }
 
     return (
         <ShoppingCartScreen>
-            <div className="header" onClick={()=>navigat('/')} >
+            <div className="header" onClick={() => navigat('/')} >
                 Mallia
             </div>
             <div className="greenBar"></div>
@@ -47,7 +49,7 @@ export default function ShoppingCart() {
             </div>
 
             <div className="productsOnCart">
-                { !cart ? "" : (cart.map((cart, index) => (
+                {!cart ? "" : (cart.map((cart, index) => (
                     <CartItems
                         key={index}
                         _id={cart._id}
@@ -65,9 +67,8 @@ export default function ShoppingCart() {
                     Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
                 </div>
                 <div className="totalBox">
-                    <div>Total R${total}</div>
-                    { user.loginInfos  ? <Link to="/signIn" style={{ textDecoration: 'none' }}><div className="smallButton">login</div></Link>
-                    : <Link to="/confirmation" style={{ textDecoration: 'none' }}><div className="smallButton">Finalizar compra</div></Link>}
+                    <div>Total R${total%1===0 ?total/100+",00": total/100}</div>
+                    <div className="smallButton" onClick={sendRequest} >{ user.token ? 'Finalizar compra' :'Loguin'}</div>
                 </div>
             </div>
 
