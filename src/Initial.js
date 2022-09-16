@@ -31,17 +31,17 @@ export default function Initial() {
         getProducts({ headers: { Authorization: `Bearer ${user.token}` } }).catch(err).then(sucess);
     }, [])
     function sucess(value) {
-        setInitial({ ...initial, list: value.data, rolinit:0, rolend: value.data.length, rol: 21 });
+        setInitial({ ...initial, list: value.data, rolinit:0, rolend: value.data.length, rol: 11 });
     }
     function err(value) {
         alert(value.data)
     }
     function rolPlus(){
-        if(initial.rol<initial.rolend) setInitial({...initial, rolinit: initial.rolinit+21, rol: initial.rol+21 })
+        if(initial.rol<initial.rolend) setInitial({...initial, rolinit: initial.rolinit+11, rol: initial.rol+11 })
 
     }
     function rolLess(){
-        if(initial.rol>0 && initial.rolinit>0 ) setInitial({...initial, rolinit: initial.rolinit-21, rol: initial.rol-21 })
+        if(initial.rol>0 && initial.rolinit>0 ) setInitial({...initial, rolinit: initial.rolinit-11, rol: initial.rol-11 })
     }
 
     function transitio(){
@@ -78,10 +78,11 @@ export default function Initial() {
 }
 
 const Part = styled.div`
-margin: 90px 10px ;
+margin: 50px 10px ;
 display: flex ;
-height: 52% ;
-width: 98% ;
+height: 60% ;
+justify-content: space-between ;
+width: 95% ;
 button{
     img{
         width: 20px ;
@@ -98,6 +99,7 @@ display: flex ;
 justify-content: center ;
 flex-wrap: wrap ;
 overflow: auto ;
+width: 88% ;
 ::-webkit-scrollbar { display: none; }
 `;
 
@@ -129,7 +131,7 @@ const All = styled.div`
 
         img{
             
-            width: 200px ;
+            width: 180px ;
         }
         Button{
             color: #869187;
