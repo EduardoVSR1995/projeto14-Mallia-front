@@ -29,9 +29,10 @@ export default function Login({user , setUser}) {
             postSignIn(login).then((res) => {
                 localStorage.clear();
                 localStorage.setItem('Mallia', JSON.stringify(login));
-                setUser({...user, name: res.data.name, token: res.data.token });
+                console.log(res.data);
+                setUser({...user, name: res.data.name, token: res.data.token, email: res.data.email, userId: res.data.userId });
                 if(user.cont===0) return navigate("/");
-                navigate("/shoppingCart")
+                navigate("/")
                 return ;
             }).catch((error) => {
                 if (error.response.status === 401) {
