@@ -25,7 +25,10 @@ export default function Initial() {
         
         console.log(token)
 
-        if (token) getValidation({ headers: { Authorization: `Bearer ${token}` }}).then(function(i){
+        if (token) getValidation({ headers: { Authorization: `Bearer ${token}` }}).catch(function(i){
+            alert("Usuario deslogado");
+            localStorage.clear();
+        }).then(function(i){
  
             console.log(i)
  
@@ -38,11 +41,7 @@ export default function Initial() {
                 console.log(user)
  
             }
-        }).catch(function(){
-                        alert("Usuario deslogado");
-                        setUser({});
-                        localStorage.clear();
-                    });
+        });
 
         console.log(user)
  
@@ -53,7 +52,7 @@ export default function Initial() {
     }, [])
     
     function sucess(value) {
-
+        console.log(value)
         setInitial({ ...initial, list: value.data, rolinit: 0, rolend: value.data.length, rol: 11 });
     }
     function err(value) {
@@ -91,7 +90,7 @@ export default function Initial() {
         
     }
 
-    console.log(user)
+    console.log(initial)
 
     return (
 

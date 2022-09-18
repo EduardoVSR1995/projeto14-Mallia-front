@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-//http://localhost:5000/
+//https://mallia-back-dudu007.herokuapp.com/
 
-const URL = "https://mallia-back-dudu007.herokuapp.com/";
+const URL = "http://localhost:5000/";
 
 function getProducts(header){
     const promis = axios.get(`${URL}products`,header);
