@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+//http://localhost:5000/
+
 const URL = "https://mallia-back-dudu007.herokuapp.com/";
 
 function getProducts(header){

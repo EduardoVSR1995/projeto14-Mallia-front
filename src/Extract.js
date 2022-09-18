@@ -1,10 +1,10 @@
+import { postSaleConfirmation } from "./parts/mallia.js";
 import { Container, Button } from "./parts/Subparts";
 import { useNavigate } from "react-router-dom";
 import UserContext from "./parts/UserContext";
 import styled from "styled-components";
 import { useContext} from "react";
 
-import { postSaleConfirmation } from "./parts/mallia.js";
 
 export default function Extract(){
     const { user, setUser } = useContext(UserContext);
@@ -35,7 +35,7 @@ export default function Extract(){
             <AllInfos>
                 <span> Nome: {user.name}</span>
                 <span>Email: {user.email}</span>
-                <span> Nome dos produtos: {user.product.map(value => {return <h2> {value.productName} </h2> })}</span>
+                <span> Nome dos produtos: {user.product.map((value, index )=> {return <h2 key={index} > {value.productName} </h2> })}</span>
                 <span>Total de produtos: {user.cont}</span>
                 <span><Button background={"#DFDFD5"} height={'50px'} width={"250px"} onClick={postSale} > Confirmar compra </Button></span>
             </AllInfos>

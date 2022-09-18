@@ -1,5 +1,5 @@
 import UserContext from "../src/parts/UserContext.js";
-import { postSignIn } from "./parts/mallia.js";
+import { getValidation } from "./parts/mallia.js";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import styled from "styled-components";
@@ -16,10 +16,10 @@ export default function ShoppingCart() {
     let sum = 0;
 
     useEffect(() => {
-        const use = JSON.parse(localStorage.getItem('Mallia'));
-        if(use) postSignIn(use).then((i)=>{ 
-        if(use.token){setUser({...user,name:i.data.name, token: i.data.token, plusplus, sum: sum })}}
-        ).catch(()=> localStorage.clear());
+        const token = JSON.parse(localStorage.getItem('Mallia'));
+        if(token) getValidation({ headers: { Authorization: `Bearer ${token}` }}).then((i)=>{
+        if(token){setUser({...user, plusplus, sum: sum })}}
+        ).catch(value => alert(value) );
         
         if(cart){
             cart.forEach(price => {
@@ -37,7 +37,8 @@ export default function ShoppingCart() {
         setTotal(price)
     }
     function sendRequest(){
-       if( !user.token ) return navigat('/signIn')
+       if( !user.token ) return navigat('/signIn');
+       
        navigat('/cheCkout')
     }
 

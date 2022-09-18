@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import { postSignIn } from "../src/parts/mallia.js";
 
-export default function Login({user , setUser}) {
+export default function Login({user}) {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [userEmail, setUserEmail] = useState("");
@@ -29,7 +29,6 @@ export default function Login({user , setUser}) {
             postSignIn(login).then((res) => {
                 localStorage.clear();
                 localStorage.setItem('Mallia', JSON.stringify(res.data.token));
-                setUser({...user, name: res.data.name, email: res.data.email, token: res.data.token });
 
                 if(user.cont===0) return navigate("/");
                 navigate("/")
@@ -42,7 +41,6 @@ export default function Login({user , setUser}) {
             });          
         };        
     };
-    console.log(user)
     return(
         <LoginScreen>
             <div onClick={()=> navigate('/')} className="header">
