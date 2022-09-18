@@ -17,9 +17,16 @@ function postSignIn(login) {
     return promise;
 };
 
+function getValidation(header){
+    const promis = axios.get(`${URL}sessions`,header);
+    return promis;
+};
+
+
 function postSaleConfirmation(cart, saleAuth) {
     const promise = axios.post(`${URL}cheCkout`, cart, saleAuth);
     return promise;
 }
 
-export {getProducts, postRegister, postSignIn, postSaleConfirmation};
+export {getProducts, postRegister, postSignIn, getValidation, postSaleConfirmation};
+
