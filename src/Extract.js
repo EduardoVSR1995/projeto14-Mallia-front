@@ -1,4 +1,4 @@
-import { postSaleConfirmation } from "./parts/mallia.js";
+import { postSaleConfirmation, postCartUser } from "./parts/mallia.js";
 import { Container, Button } from "./parts/Subparts";
 import { useNavigate } from "react-router-dom";
 import UserContext from "./parts/UserContext";
@@ -9,6 +9,7 @@ import { useContext} from "react";
 export default function Extract(){
     const { user, setUser } = useContext(UserContext);
     const navigat = useNavigate()    
+    const token = JSON.parse(localStorage.getItem('Mallia'));
 
     function postSale() {
         const cart = {
@@ -18,6 +19,7 @@ export default function Extract(){
         const saleAuth = { headers: {"auth": "Bearer " + token}};
 
         postSaleConfirmation(cart, saleAuth).then(() => {
+            postCartUser({products:[], cont:0}, { headers: { Authorization: `Bearer ${token}` }}) 
             setUser({ ...user, product: [], cont:0 });
             alert("Compra realizada com sucesso!");
             navigat('/');

@@ -52,7 +52,6 @@ export default function Register() {
 
             postRegister(register).then((res) => {
                 localStorage.clear();
-                console.log(res)
                 localStorage.setItem('Mallia', JSON.stringify(res.data.token));
                 if(user.cont===0) return navigate("/");
                 navigate("/shoppingCart")

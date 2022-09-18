@@ -1,23 +1,31 @@
 import UserContext from './UserContext.js';
-import styled from "styled-components"
+import { postCartUser } from './mallia.js';
+import styled from "styled-components";
 import { useContext } from "react";
 
 
 export default function EveryProducts({...props}){
     const { user, setUser } = useContext(UserContext);
+    const token = JSON.parse(localStorage.getItem('Mallia'));
+
     function veriIten(){
         for (let i = 0; i < user.product.length; i++) {
             if( props.obj._id === user.product[i]._id ){
                 const obj = {...user.product[i], quantity:user.product[i].quantity+1}
                 const aux = [...user.product]
                 aux[i] = obj;
-                setUser({...user, product:[...aux], cont: user.cont+1 }) 
+                setUser({...user, product:[...aux], cont: user.cont+1 })
+                if(token) postCartUser({product:[...aux], cont: user.cont+1 },{ headers: { Authorization: `Bearer ${token}` }}) 
                 return
             }
     
         }
-        
+
         setUser({...user, product:[...user.product, {...props.obj, quantity:1 } ], cont: user.cont+1 })
+        
+        if(token) postCartUser({product:[...user.product, {...props.obj, quantity:1 } ], cont: user.cont+1 },{ headers: { Authorization: `Bearer ${token}` }}) 
+        
+
     }
 
     const price = props.obj.price/100

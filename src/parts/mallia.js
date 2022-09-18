@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-//http://localhost:5000/
+//const URL = "http://localhost:5000/"
 
 const URL = "https://mallia-back-dudu007.herokuapp.com/";
 
@@ -24,11 +24,21 @@ function getValidation(header){
     return promis;
 };
 
-
 function postSaleConfirmation(cart, saleAuth) {
     const promise = axios.post(`${URL}cheCkout`, cart, saleAuth);
     return promise;
 }
 
-export {getProducts, postRegister, postSignIn, getValidation, postSaleConfirmation};
+function postCartUser(obj ,header){
+    const promis = axios.post(`${URL}cartUser`,obj, header);
+    return promis;
+};
+function getCartUser(header){
+    const promis = axios.get(`${URL}cartUser`, header);
+    return promis;
+};
+
+
+
+export {getProducts, postRegister, postSignIn, getValidation, postSaleConfirmation, postCartUser, getCartUser};
 

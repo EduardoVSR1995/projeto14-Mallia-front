@@ -1,11 +1,14 @@
-import styled from "styled-components";
 import UserContext from "./parts/UserContext.js";
+import { postCartUser } from "./parts/mallia.js";
+import {useNavigate} from 'react-router-dom';
+import styled from "styled-components";
 import { useContext } from "react";
-import {useNavigate} from 'react-router-dom'
 
 export default function CartItems({ _id ,productName, price, descryption, image, quantity}) {
     const { user, setUser } = useContext(UserContext);
     const navigat = useNavigate()
+    const token = JSON.parse(localStorage.getItem('Mallia'));
+
     
     if(quantity === 0){
         if (user.cont===0) return navigat('/');
@@ -27,6 +30,9 @@ export default function CartItems({ _id ,productName, price, descryption, image,
                 aux[i] = obj;
                 setUser({...user, product:[...aux], cont: user.cont-1, sum: user.sum-price }) 
                 user.plusplus(user.sum-price)
+                if(token)postCartUser({product:[...aux], cont: user.cont-1 },{ headers: { Authorization: `Bearer ${token}` }}) 
+
+
             }        
 
         }
@@ -41,7 +47,8 @@ export default function CartItems({ _id ,productName, price, descryption, image,
                 aux[i] = obj;
                 setUser({...user, product:[...aux],cont: user.cont+1 ,sum: user.sum+price }) 
                 user.plusplus(user.sum+price)
-                return
+                if(token)postCartUser({product:[...aux], cont: user.cont+1 },{ headers: { Authorization: `Bearer ${token}` }}) 
+
             }
     }}
    
