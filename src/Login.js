@@ -30,8 +30,9 @@ export default function Login({user , setUser}) {
                 localStorage.clear();
                 localStorage.setItem('Mallia', JSON.stringify(res.data.token));
                 setUser({...user, name: res.data.name, email: res.data.email, token: res.data.token });
+
                 if(user.cont===0) return navigate("/");
-                navigate("/shoppingCart")
+                navigate("/")
                 return ;
             }).catch((error) => {
                 if (error.response.status === 401) {

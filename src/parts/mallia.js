@@ -23,4 +23,10 @@ function getValidation(header){
 };
 
 
-export {getProducts, postRegister, postSignIn, getValidation};
+function postSaleConfirmation(cart, saleAuth) {
+    const promise = axios.post(`${URL}cheCkout`, cart, saleAuth);
+    return promise;
+}
+
+export {getProducts, postRegister, postSignIn, getValidation, postSaleConfirmation};
+

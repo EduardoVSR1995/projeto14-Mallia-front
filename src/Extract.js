@@ -4,10 +4,27 @@ import UserContext from "./parts/UserContext";
 import styled from "styled-components";
 import { useContext} from "react";
 
+import { postSaleConfirmation } from "./parts/mallia.js";
+
 export default function Extract(){
     const { user, setUser } = useContext(UserContext);
     const navigat = useNavigate()    
 
+    function postSale() {
+        const cart = {
+            products: user.product
+        };
+        const token = user.token;
+        const saleAuth = { headers: {"auth": "Bearer " + token}};
+
+        postSaleConfirmation(cart, saleAuth).then(() => {
+            setUser({ ...user, product: [], cont:0 });
+            alert("Compra realizada com sucesso!");
+            navigat('/');
+        }).catch(() => {
+            alert("Compra realizada com sucesso!");
+        });        
+    };
   
     return(
       <All>
@@ -20,7 +37,7 @@ export default function Extract(){
                 <span>Email: {user.email}</span>
                 <span> Nome dos produtos: {user.product.map(value => {return <h2> {value.productName} </h2> })}</span>
                 <span>Total de produtos: {user.cont}</span>
-                <span><Button background={"#DFDFD5"} height={'50px'} width={"250px"} onClick={function(){navigat('/' ); setUser({})}} > Confirmar compra </Button></span>
+                <span><Button background={"#DFDFD5"} height={'50px'} width={"250px"} onClick={postSale} > Confirmar compra </Button></span>
             </AllInfos>
             <h3>
                 Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups
