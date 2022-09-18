@@ -1,8 +1,8 @@
-import UserContext from "./parts/UserContext";
 import { Container, Button } from "./parts/Subparts";
-import styled from "styled-components";
-import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import UserContext from "./parts/UserContext";
+import styled from "styled-components";
+import { useContext} from "react";
 
 export default function Extract(){
     const { user, setUser } = useContext(UserContext);
@@ -23,7 +23,7 @@ export default function Extract(){
                 <span><Button background={"#DFDFD5"} height={'50px'} width={"250px"} onClick={function(){navigat('/' ); setUser({})}} > Confirmar compra </Button></span>
             </AllInfos>
             <h3>
-            Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups
+                Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups
             </h3>
 
       </All>  
@@ -31,13 +31,17 @@ export default function Extract(){
 }
 
 const AllInfos = styled.div`
-margin: 80px ;
+background-color: #E6E6E6;
+margin-top: 40px ;
+height:100vh ;
+
+
  span{
     margin: 10px ;
    
     button{
-        border: 2px solid ;
         border-color: #C4C7BF ;
+        border: 2px solid ;
         margin-top: 40px ;
 
     }
@@ -53,11 +57,11 @@ const All = styled.div`
     width: 100%;
     span{
 
-        font-size: 18px ;
-        margin: 10px ;
-        display: flex ;
         justify-content: center ;
         align-items: center ;
+        font-size: 18px ;
+        display: flex ;
+        margin: 10px ;
         width: 100% ;
 
         h2{
@@ -66,27 +70,26 @@ const All = styled.div`
     
     }
     h1{
-        padding: 15px;
-        display: flex ;
-        align-items: flex-start ;
         justify-content: space-between ;
+        align-items: flex-start ;
         font-weight: 400 ;
         font-size: 50px ;
+        display: flex ;
+        padding: 15px;
         height: 60px ;
         
     }
     h3{
-        padding: 15px;
-        display: flex ;
+        background-color: #DFDFD5;
         justify-content: center ;
         align-items: center ;
-        font-weight: 400 ;
         border-radius: 10px ;
-        margin: -30px 20px ;
+        margin: -90px 20px ;
+        font-weight: 400 ;
         font-size: 10px ;
+        padding: 15px;
         width: 300px ;
         height: 70px ;
-        background-color: #DFDFD5;
         
     }
 

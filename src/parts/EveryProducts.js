@@ -30,48 +30,49 @@ export default function EveryProducts({...props}){
     )
 }
 const Img = styled.div`
-    display: flex ;
     justify-content: center ;
-    width:120px ;
+    display: flex ;
     height: 80px ;
+    width:120px ;
     img{
-    max-width: 90px;
-    max-height: 90px ;
+        max-height: 90px ;
+        max-width: 90px;
 }
 
 `;
 
 
 const Every = styled.div`
-box-shadow: 5px 3px 10px grey;
-display: flex ;
-justify-content: center ;
-flex-wrap: wrap ;
-margin: 5px 10px ;
-border-radius: 30px ;
-width: 150px ;
-height: 180px ;
-background: #DFDFD5 ;
 transition: white 500ms linear;
-
-:hover{
-    transform: translateY(5px)   
-
-}
-:active{ 
- transform: rotateZ(5deg) ;
-
-
-}
-span{
-display: flex ;
+box-shadow: 5px 3px 10px grey;
 justify-content: center ;
-align-items: start ;
-font-size: 15px ;
-width: 95% ;
-height: 40px ;
+border-radius: 30px ;
+background: #DFDFD5 ;
+margin: 5px 10px ;
+flex-wrap: wrap ;
+height: 180px ;
+display: flex ;
+width: 150px ;
 
-}
+    :hover{
+        transform: translateY(5px)   
+
+    }
+    :active{ 
+        transform: rotateZ(5deg) ;
+
+
+    }
+
+    span{
+        justify-content: center ;
+        align-items: start ;
+        font-size: 15px ;
+        display: flex ;
+        height: 40px ;
+        width: 95% ;
+
+    }
 
 `;
 

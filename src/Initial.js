@@ -1,8 +1,8 @@
+import { getProducts, getValidation } from "./parts/mallia.js";
 import { Container, Button } from "./parts/Subparts.js";
 import EveryProducts from './parts/EveryProducts';
 import { ThreeDots } from "react-loader-spinner";
 import UserContext from './parts/UserContext.js';
-import { getProducts, postSignIn } from "./parts/mallia.js";
 import { useNavigate } from "react-router-dom";
 import reigth from './imags/passarR.svg';
 import left from './imags/passarL.svg';
@@ -18,58 +18,74 @@ export default function Initial() {
     const { user, setUser } = useContext(UserContext);
     const [initial, setInitial] = useState({})
     const navigat = useNavigate();
-   
-    useEffect(() => {
-        const use = JSON.parse(localStorage.getItem('Mallia'));
-        if(use) postSignIn(use).then(function(i){ 
-            if(!user.cont){
-                setUser({...user, name:i.data.name, token: i.data.token,product: [], cont:0 })
-            }
-            }).catch(()=> localStorage.clear());
 
-        if (!user.product) setUser({ ...user, product: [], cont:0 });
+    useEffect(() => {
+
+        const token = JSON.parse(localStorage.getItem('Mallia'));
+
+        if (token) getValidation({ headers: { Authorization: `Bearer ${token}` }}).then(function (i) {
+            console.log(i)
+            if (!user.cont) {
+                setUser({ ...user, ...i.data, product: [], cont: 0 })
+            }
+        }).catch(() => localStorage.clear());
+
+        if (!user.product) setUser({ ...user, product: [], cont: 0 });
+
         getProducts({ headers: { Authorization: `Bearer ${user.token}` } }).catch(err).then(sucess);
+    
     }, [])
+    
     function sucess(value) {
-        setInitial({ ...initial, list: value.data, rolinit:0, rolend: value.data.length, rol: 11 });
+
+        setInitial({ ...initial, list: value.data, rolinit: 0, rolend: value.data.length, rol: 11 });
     }
     function err(value) {
+
         alert(value.data)
+    
     }
-    function rolPlus(){
-        if(initial.rol<initial.rolend) setInitial({...initial, rolinit: initial.rolinit+11, rol: initial.rol+11 })
+    function rolPlus() 
+    {
+        if (initial.rol < initial.rolend) setInitial({ ...initial, rolinit: initial.rolinit + 11, rol: initial.rol + 11 })
 
     }
-    function rolLess(){
-        if(initial.rol>0 && initial.rolinit>0 ) setInitial({...initial, rolinit: initial.rolinit-11, rol: initial.rol-11 })
+    function rolLess() {
+    
+        if (initial.rol > 0 && initial.rolinit > 0) setInitial({ ...initial, rolinit: initial.rolinit - 11, rol: initial.rol - 11 })
+    
     }
 
-    function transitio(){
-        if(window.confirm('Deseja sair da sua conta')){
+    function transitio() {
+        if (window.confirm('Deseja sair da sua conta')) {
+    
             localStorage.clear()
+    
             setUser({});
-            navigat('/signIn') 
-        }}
+    
+            navigat('/signIn')
+        }
+    }
 
     console.log(user)
 
     return (
 
         <All>
-            <Container background={'#E7DFD8'} height={'80px'} > <h1> Mallia  <img src={logo} /><p><Button onClick={()=>user.token ? transitio() : navigat('/signIn') }> {user.name ? `${user.name[0].toUpperCase()}${user.name.substr(1)}` :'Login' } </Button> <Button  onClick={() => navigat('/shoppingCart')} ><img src={image} /> &nbsp; {user.cont} </Button></p></h1>  </Container>
+            <Container background={'#E7DFD8'} height={'80px'} > <h1> Mallia  <img src={logo} /><p><Button onClick={() => user.token ? transitio() : navigat('/signIn')}> {user.name ? `${user.name[0].toUpperCase()}${user.name.substr(1)}` : 'Login'} </Button> <Button onClick={() => navigat('/shoppingCart')} ><img src={image} /> &nbsp; {user.cont} </Button></p></h1>  </Container>
             <Container background={'#DFDFD5'} height={'10px'}></Container>
             <h1>
                 <Container width={'30%'} > Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</Container>
                 <Container width={'35%'} > Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</Container>
             </h1>
             <Part>
-                <Button background={"#E6E6E6"} height={'100px'} width={'50px'} onClick={rolLess} > <img src={left} /> </Button>
+                <Button background={"#E6E6E6"} height={'100%'} width={'10%'} onClick={rolLess} > <img src={left} /> </Button>
                 <AllContainer>
 
-                    {!initial.list ? <ThreeDots color="#ffffff" height={100} width={500} /> : initial.list.map(function (value, index) { if ( index >= initial.rolinit && index <= initial.rol  ){ return <EveryProducts key={index} obj={value} /> } })}
+                    {!initial.list ? <ThreeDots color="#ffffff" height={100} width={500} /> : initial.list.map(function (value, index) { if (index >= initial.rolinit && index <= initial.rol) { return <EveryProducts key={index} obj={value} /> } })}
 
                 </AllContainer >
-                <Button background={"#E6E6E6"} height={'100px'} width={'50px'} onClick={rolPlus} > <img src={reigth} /> </Button>
+                <Button background={"#E6E6E6"} height={'100%'} width={'10%'} onClick={rolPlus} > <img src={reigth} /> </Button>
             </Part>
         </All >
     )
@@ -78,29 +94,35 @@ export default function Initial() {
 }
 
 const Part = styled.div`
-margin: 50px 10px ;
-display: flex ;
-height: 60% ;
 justify-content: space-between ;
-width: 95% ;
+align-items:flex-start ;
+background: #E6E6E6 ;
+max-height: 650px ;
+margin: 35px 0px ;
+display: flex ;
+height: 60vh ;
+width: 100% ;
 button{
     img{
-        width: 20px ;
-        height: 40px ;
         filter:opacity(0.3) drop-shadow(0 0 0 #DFDFD5);
+        height: 40px ;
+        width: 20px ;
     }
 }
 
 `;
 
 const AllContainer = styled.div`
-color: #869187;
-display: flex ;
-justify-content: center ;
-flex-wrap: wrap ;
-overflow: auto ;
-width: 88% ;
 ::-webkit-scrollbar { display: none; }
+justify-content: center ;
+background: #E6E6E6 ;
+max-height: 650px ;
+overflow: scroll ;
+flex-wrap: wrap ;
+color: #869187 ;
+display: flex ;
+height: 62vh ;
+width: 80% ;
 `;
 
 
@@ -108,25 +130,25 @@ const All = styled.div`
     color: #869187;
     width: 100%;
     h1{
-        padding: 15px;
-        display: flex ;
-        align-items: flex-start ;
         justify-content: space-between ;
+        align-items: flex-start ;
         font-weight: 400 ;
+        display: flex ;
+        padding: 15px;
 
     }
 
     div>h1{
-        display: flex ;
-        align-items: flex-start ;
         justify-content: space-between ;
+        align-items: flex-start ;
         font-weight: 400 ;
         font-size: 50px ;
+        display: flex ;
         height: 60px ;
         p{
+            width: 200px ;
             display: flex ;
             justify-content: space-between ;
-            width: 200px ;
         }
 
         img{
@@ -134,9 +156,9 @@ const All = styled.div`
             width: 180px ;
         }
         Button{
-            color: #869187;
-            width: 80px;
+            color: #869187 ; 
             height: 40px ;
+            width: 80px ;
             img{
                 width: 25px ;
                 filter:opacity(0.3) drop-shadow(0 0 0 #DFDFD5);

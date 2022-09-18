@@ -17,4 +17,10 @@ function postSignIn(login) {
     return promise;
 };
 
-export {getProducts, postRegister, postSignIn};
+function getValidation(header){
+    const promis = axios.get(`${URL}sessions`,header);
+    return promis;
+};
+
+
+export {getProducts, postRegister, postSignIn, getValidation};

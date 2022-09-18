@@ -51,7 +51,7 @@ export default function ShoppingCart() {
             <div className="title">
                 Carrinho de compras
             </div>
-
+            <div className="allCarFooter">
             <div className="productsOnCart">
                 {!cart ? "" : (cart.map((cart, index) => (
                     <CartItems
@@ -65,14 +65,15 @@ export default function ShoppingCart() {
                     />
                 )))}
             </div>
-
-            <div className="cartFooter">
-                <div className="malliaValuesBox">
-                    Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
-                </div>
-                <div className="totalBox">
-                    <div>Total R${total%1===0 ?total/100+",00": user.sum/100}</div>
-                    <div className="smallButton" onClick={sendRequest} >{ user.token ? 'Finalizar compra' : "Login"}</div>
+            
+                <div className="cartFooter">
+                    <div className="malliaValuesBox">
+                        Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
+                    </div>
+                    <div className="totalBox">
+                        <div>Total R${total%1===0 ?total/100+",00": user.sum/100}</div>
+                        <div className="smallButton" onClick={sendRequest} >{ user.token ? 'Finalizar compra' : "Login"}</div>
+                    </div>
                 </div>
             </div>
 
@@ -82,6 +83,7 @@ export default function ShoppingCart() {
 
 const ShoppingCartScreen = styled.div`
 background-color: #E6E6E6;
+
 .header {
     width: 100vw;
     height: 130px;
@@ -125,6 +127,11 @@ background-color: #E6E6E6;
         display: none;
     }
 }
+.allCarFooter{
+    background-color: #E6E6E6;
+    width: 100vw ;
+}
+
 .cartFooter {
     display: flex;
 }

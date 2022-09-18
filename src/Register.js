@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { postRegister } from "./parts/mallia.js";
 
 export default function Register() {
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [userName, setUserName] = useState("");
@@ -51,9 +51,8 @@ export default function Register() {
             setLoading(false);
 
             postRegister(register).then((res) => {
-                const login = {name: userName, password:userPassword}
                 localStorage.clear();
-                localStorage.setItem('Mallia', JSON.stringify(login));
+                localStorage.setItem('Mallia', JSON.stringify(res.data.token));
                 if(user.cont===0) return navigate("/");
                 navigate("/shoppingCart")
                 alert("Usuário criado com sucesso");
@@ -112,8 +111,8 @@ export default function Register() {
 
                 {(loading) ? <button type="submit" className="inputBar button">Cadastrar</button>
                 : <button className="inputBar button"><ThreeDots color="#ffffff" height={40} width={40} /></button>}
+                <Link to="/signIn"><div className="link">Já tem uma conta? Entre agora!</div></Link>
             </form>
-            <Link to="/signIn"><div className="link">Já tem uma conta? Entre agora!</div></Link>
         </RegisterScreen>
     );
 };
@@ -194,6 +193,7 @@ a{
     font-weight: 700;
 }
 .form {
+    background-color: #E6E6E6;
     display: flex;
     flex-direction: column;
     justify-content: center;

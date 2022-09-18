@@ -28,8 +28,8 @@ export default function Login({user , setUser}) {
 
             postSignIn(login).then((res) => {
                 localStorage.clear();
-                localStorage.setItem('Mallia', JSON.stringify(login));
-                setUser({...user, name: res.data.name, token: res.data.token });
+                localStorage.setItem('Mallia', JSON.stringify(res.data.token));
+                setUser({...user, name: res.data.name, email: res.data.email, token: res.data.token });
                 if(user.cont===0) return navigate("/");
                 navigate("/shoppingCart")
                 return ;
@@ -72,8 +72,9 @@ export default function Login({user , setUser}) {
 
                 {(loading) ? <button type="submit" className="inputBar button">Entrar</button>
                 : <button className="inputBar button"><ThreeDots color="#ffffff" height={40} width={40} /></button>}
+                <Link to="/register"><div className="link">Primeira vez? Cadastre-se!</div></Link>
+
             </form>
-            <Link to="/register"><div className="link">Primeira vez? Cadastre-se!</div></Link>
         </LoginScreen>
     );
 };
@@ -153,12 +154,13 @@ a{
     font-weight: 700;
 }
 .form {
+    background-color: #E6E6E6;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.link {
+.link {    
     font-size: 15px;
     font-weight: 700;
     color: #b3b3b3;
