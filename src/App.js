@@ -21,7 +21,7 @@ export default function App() {
                             <Route path="/" element={<Initial />} />
                             <Route path="/register" element={<Register />} />
                             <Route path="/shoppingCart" element={<ShoppingCart />} />
-                            <Route path="/signIn" element={<Login setUser={setUser} user={user} />} />
+                            <Route path="/signIn" element={<Login user={user} />} />
                             <Route path='/cheCkout' element={<Extract/>} />
                         </Routes>
                     </BrowserRouter>

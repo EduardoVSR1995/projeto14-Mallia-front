@@ -22,14 +22,30 @@ export default function Initial() {
     useEffect(() => {
 
         const token = JSON.parse(localStorage.getItem('Mallia'));
+        
+        console.log(token)
 
-        if (token) getValidation({ headers: { Authorization: `Bearer ${token}` }}).then(function (i) {
+        if (token) getValidation({ headers: { Authorization: `Bearer ${token}` }}).then(function(i){
+ 
             console.log(i)
-            if (!user.cont) {
+ 
+            setUser({ ...user, ...i.data })
+ 
+            if (!user.cont){
+ 
                 setUser({ ...user, ...i.data, product: [], cont: 0 })
+ 
+                console.log(user)
+ 
             }
-        }).catch(() => localStorage.clear());
+        }).catch(function(){
+                        alert("Usuario deslogado");
+                        setUser({});
+                        localStorage.clear();
+                    });
 
+        console.log(user)
+ 
         if (!user.product) setUser({ ...user, product: [], cont: 0 });
 
         getProducts({ headers: { Authorization: `Bearer ${user.token}` } }).catch(err).then(sucess);
@@ -57,6 +73,9 @@ export default function Initial() {
     }
 
     function transitio() {
+
+        if(!user.name) return navigat('/signIn');
+        
         if (window.confirm('Deseja sair da sua conta')) {
     
             localStorage.clear()
@@ -64,7 +83,10 @@ export default function Initial() {
             setUser({});
     
             navigat('/signIn')
+
+
         }
+        
     }
 
     console.log(user)
@@ -72,7 +94,7 @@ export default function Initial() {
     return (
 
         <All>
-            <Container background={'#E7DFD8'} height={'80px'} > <h1> Mallia  <img src={logo} /><p><Button onClick={() => user.token ? transitio() : navigat('/signIn')}> {user.name ? `${user.name[0].toUpperCase()}${user.name.substr(1)}` : 'Login'} </Button> <Button onClick={() => navigat('/shoppingCart')} ><img src={image} /> &nbsp; {user.cont} </Button></p></h1>  </Container>
+            <Container background={'#E7DFD8'} height={'80px'} > <h1> Mallia  <img src={logo} /><p><Button onClick={transitio}> {user.name ? `${user.name[0].toUpperCase()}${user.name.substr(1)}` : 'Login'} </Button> <Button onClick={() => navigat('/shoppingCart')} ><img src={image} /> &nbsp; {user.cont} </Button></p></h1>  </Container>
             <Container background={'#DFDFD5'} height={'10px'}></Container>
             <h1>
                 <Container width={'30%'} > Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</Container>
