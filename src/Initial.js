@@ -23,15 +23,11 @@ export default function Initial() {
 
         const token = JSON.parse(localStorage.getItem('Mallia'));
         
-        console.log(token)
-
         if (token) getValidation({ headers: { Authorization: `Bearer ${token}` }}).catch(function(i){
             alert("Usuario deslogado");
             localStorage.clear();
         }).then(function(i){
- 
-            console.log(i)
- 
+  
             setUser({ ...user, ...i.data })
  
             if (!user.cont){
