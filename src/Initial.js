@@ -1,4 +1,4 @@
-import { getProducts, getValidation } from "./parts/mallia.js";
+import { getCartUser, getProducts, getValidation, postCartUser } from "./parts/mallia.js";
 import { Container, Button } from "./parts/Subparts.js";
 import EveryProducts from './parts/EveryProducts';
 import { ThreeDots } from "react-loader-spinner";
@@ -27,28 +27,25 @@ export default function Initial() {
             alert("Usuario deslogado");
             localStorage.clear();
         }).then(function(i){
-  
-            setUser({ ...user, ...i.data })
- 
+
+            getCartUser({ headers: { Authorization: `Bearer ${token}` }}).then( value => setUser({...user, ...i.data ,...value.data }))
+            
             if (!user.cont){
  
-                setUser({ ...user, ...i.data, product: [], cont: 0 })
- 
-                console.log(user)
- 
-            }
-        });
+                 setUser({ ...user, ...i.data, product: [], cont: 0 })
+            
+                }
+                postCartUser({product: user.product ,cont: user.cont },{ headers: { Authorization: `Bearer ${token}` }}) 
 
-        console.log(user)
+        });
  
         if (!user.product) setUser({ ...user, product: [], cont: 0 });
 
-        getProducts({ headers: { Authorization: `Bearer ${user.token}` } }).catch(err).then(sucess);
-    
+        getProducts({ headers: { Authorization: `Bearer ${user.token}` } }).catch(err).then(sucess);         
+
     }, [])
     
     function sucess(value) {
-        console.log(value)
         setInitial({ ...initial, list: value.data, rolinit: 0, rolend: value.data.length, rol: 11 });
     }
     function err(value) {
@@ -56,8 +53,8 @@ export default function Initial() {
         alert(value.data)
     
     }
-    function rolPlus() 
-    {
+    function rolPlus(){
+
         if (initial.rol < initial.rolend) setInitial({ ...initial, rolinit: initial.rolinit + 11, rol: initial.rol + 11 })
 
     }
@@ -79,14 +76,9 @@ export default function Initial() {
     
             navigat('/signIn')
 
-
-            
-
         }
         
     }
-
-    console.log(initial)
 
     return (
 
