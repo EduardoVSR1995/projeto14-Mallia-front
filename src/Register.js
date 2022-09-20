@@ -53,7 +53,7 @@ export default function Register() {
             postRegister(register).then((res) => {
                 localStorage.clear();
                 localStorage.setItem('Mallia', JSON.stringify(res.data.token));
-                if(user.cont===0) return navigate("/");
+                if(user.cont===0 || !user.cont) return navigate("/");
                 navigate("/shoppingCart")
                 alert("Usuário criado com sucesso");
             }).catch((error) => {

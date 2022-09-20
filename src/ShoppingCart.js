@@ -16,9 +16,14 @@ export default function ShoppingCart() {
     let sum = 0;
 
     useEffect(() => {
+
         const token = JSON.parse(localStorage.getItem('Mallia'));
+
+        console.log(token)
+
         if(token) getValidation({ headers: { Authorization: `Bearer ${token}` }}).then((i)=>{
-        if(token){setUser({...user, plusplus, sum: sum })}}
+
+                setUser({...user, plusplus, sum: sum, ...i.data})}
         ).catch(value => alert(value) );
         
         if(cart){
@@ -42,7 +47,7 @@ export default function ShoppingCart() {
        navigat('/cheCkout')
     }
 
-
+console.log(user)
     return (
         <ShoppingCartScreen>
             <div className="header" onClick={() => navigat('/')} >
