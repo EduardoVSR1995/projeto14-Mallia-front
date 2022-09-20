@@ -23,8 +23,9 @@ export default function Extract(){
             setUser({ ...user, product: [], cont:0 });
             alert("Compra realizada com sucesso!");
             navigat('/');
-        }).catch(() => {
-            alert("Compra realizada com sucesso!");
+        }).catch((error) => {
+            navigat('/')
+            alert(error);
         });        
     };
   
@@ -75,7 +76,6 @@ const All = styled.div`
     color: #869187;
     width: 100%;
     span{
-
         justify-content: center ;
         align-items: center ;
         font-size: 18px ;
