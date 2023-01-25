@@ -125,15 +125,15 @@ button{
 
 const AllContainer = styled.div`
 ::-webkit-scrollbar { display: none; }
+margin-top: 30px ;
 justify-content: center ;
 background: #E6E6E6 ;
-max-height: 650px ;
 overflow: scroll ;
 flex-wrap: wrap ;
 color: #869187 ;
 display: flex ;
 height: 62vh ;
-width: 80% ;
+width: 60% ;
 `;
 
 

@@ -19,8 +19,6 @@ export default function ShoppingCart() {
 
         const token = JSON.parse(localStorage.getItem('Mallia'));
 
-        console.log(token)
-
         if(token) getValidation({ headers: { Authorization: `Bearer ${token}` }}).then((i)=>{
 
                 setUser({...user, plusplus, sum: sum, ...i.data})}
@@ -47,7 +45,6 @@ export default function ShoppingCart() {
        navigat('/cheCkout')
     }
 
-console.log(user)
     return (
         <ShoppingCartScreen>
             <div className="header" onClick={() => navigat('/')} >
